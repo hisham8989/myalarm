@@ -1,6 +1,7 @@
 let currentTime = document.getElementById("current-time");
 let currentTimeMeridian = document.querySelector("#time-meridian");
 let timeSpan = document.querySelector("#time-span");
+let setHour = document.querySelector("#set-hour");
 
 function getCurrentTime() {
     let today = new Date();
@@ -23,4 +24,11 @@ function setCurrentTime() {
     }
     timeSpan.innerText = currentTimeString;
   }
+
+function hourList(){
+  let time = getCurrentTime();
+  for(var i = 0;i<time.split(":")[0];i++){
+    
+  }
+}
 let interval = setInterval(setCurrentTime, 1000);
