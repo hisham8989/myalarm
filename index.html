@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alarm Clock</title>
-    <link rel="icon" type="image/x-icon" href="/time.ico">
+    <link rel="icon" type="image/x-icon" href="/time.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- <link rel="stylesheet" href="./style.css" /> -->
   </head>
   <body>
-    <div class="container h-80 w-11/12 md:w-2/3 lg:w-1/2 my-5 mx-auto border-4 rounded-lg">
+    <div
+      class="container min-h-[400px] w-11/12 md:w-2/3 lg:w-1/2 my-5 mx-auto border-4 rounded-lg"
+    >
       <!-- for display current time & Input for Alarm -->
 
       <div class="timer-div space-y-6">
@@ -18,7 +21,8 @@
         <div class="current-time-container flex justify-center">
           <div id="current-time" class="text-4xl cursor-default">
             <span id="time-span" class=""></span>
-            <span id="time-meridian">PM</span>
+            <span id="time-meridian"
+              >.....</span>
           </div>
         </div>
         <!-- End for Current Time -->
@@ -34,7 +38,11 @@
             <select class="h-2/3 p-3" name="" id="set-min">
               <option value="">min</option>
             </select>
-            <select class="h-2/3 rounded-r-lg p-3 mr-12" name="meridian" id="set-meridian">
+            <select
+              class="h-2/3 rounded-r-lg p-3 mr-12"
+              name="meridian"
+              id="set-meridian"
+            >
               <option value="am">am</option>
               <option value="pm">pm</option>
             </select>
@@ -60,12 +68,14 @@
         <div
           class="alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between"
         >
-          <span class="p-2 cursor-default">04:12 AM</span>
+          <span class="p-2 cursor-default">Example pm</span>
           <button class="p-2">Delete</button>
         </div>
       </div>
     </div>
-    <script>console.clear();</script>
+    <script>
+      console.clear()
+    </script>
     <script src="./script.js" type="module"></script>
   </body>
 </html>

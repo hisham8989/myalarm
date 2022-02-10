@@ -5,6 +5,7 @@ let setHour = document.querySelector('#set-hour')
 let setMin = document.querySelector('#set-min')
 let setMeridian = document.querySelector('#set-meridian')
 let setAlarmBtn = document.querySelector('#set-alarm')
+let alarmsListContainer = document.querySelector(".alarms-list-container")
 
 /** Defining Hour & Min option Dynamacally */
 var getMinList;
@@ -44,6 +45,7 @@ function minList() {
   
     if (hour > 12) {
       hour = hour - 12
+      currentTimeMeridian.innerText = 'PM'
     }else{
       currentTimeMeridian.innerText = 'AM'
     }
@@ -73,6 +75,7 @@ class Alarm {
 }
 
 let alarmId = localStorage.length+1;
+var showAlarm;
 setAlarmBtn.addEventListener('click',(e)=>{
   e.preventDefault()
   if(setHour.value>0 && setMin.value>0){
@@ -80,7 +83,28 @@ setAlarmBtn.addEventListener('click',(e)=>{
     let storingObj = JSON.stringify(newAlarm);
     localStorage.setItem(`Alarm${alarmId}`, storingObj);
     alert(`Alarm${alarmId} Added`)
+
+    // showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`));
+    // displayAlarm(showAlarm);
+    
     alarmId++;
   }
-  
 })
+
+
+function displayAlarm(showAlarm){
+  let newAlarmHtml = `<div
+  class="alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between"
+>
+  <span class="p-2 cursor-default">${showAlarm.hour}:${showAlarm.min} ${showAlarm.meridian}</span>
+  <button id="Alarm${alarmId}" class="p-2">Delete</button>
+</div>`
+
+alarmsListContainer.insertAdjacentHTML('beforeend',newAlarmHtml)
+}
+
+for(var i = 1;i<localStorage.length;i++){
+  let showAlarm = JSON.parse(localStorage.getItem(`Alarm${i}`));
+  displayAlarm(showAlarm);
+}
+// console.log(localStorage.getItem('Alarm1'))
