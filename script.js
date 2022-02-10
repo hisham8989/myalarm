@@ -98,24 +98,31 @@ setAlarmBtn.addEventListener('click', (e) => {
 
     let showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`))
     displayAlarm(showAlarm, `Alarm${alarmId}`)
-
+    /** setting alarm alert */
+    runTimerFunction(newAlarm,alarmId)
+    /** End Alarm Alert */
     alarmId++
 
-    /** setting alarm alert */
-    let interval = setInterval(function () {
-      let d = new Date().toLocaleTimeString()
-      let [newAlarmTime,meridian] = d.split(' ')
-      let [h,m,s] = newAlarmTime.split(':')
-      if (+h === +newAlarm.hour && +m === +newAlarm.min && +s === +newAlarm.sec && meridian === newAlarm.meridian) {
-        alert(`Alarm${alarmId-1} is ringing`)
-        clearInterval(interval)
-        location.reload()
-      }
-    }, 1000)
-    /** End Alarm Alert */
 
   }
 })
+
+
+/** Add Timer function */
+function runTimerFunction(newAlarm,id) {
+  let interval = setInterval(function () {
+    let d = new Date().toLocaleTimeString()
+    let [newAlarmTime,meridian] = d.split(' ')
+    let [h,m,s] = newAlarmTime.split(':')
+    if (+h === +newAlarm.hour && +m === +newAlarm.min && +s === +newAlarm.sec && meridian === newAlarm.meridian) {
+      alert(`Alarm${id} is ringing`)
+      clearInterval(interval)
+      localStorage.removeItem(`Alarm${id}`);
+      location.reload()
+    }
+  }, 1000)
+  
+}
 
 /** Displaying Alarm in the Window */
 
