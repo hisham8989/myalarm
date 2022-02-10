@@ -73,7 +73,7 @@ function secList() {
 
 /** Defining Class for alarm */
 class Alarm {
-  constructor(hour, min,sec, meridian) {
+  constructor(hour, min, sec, meridian) {
     this.hour = hour
     this.min = min
     this.sec = sec
@@ -84,15 +84,14 @@ class Alarm {
 let alarmId = localStorage.length + 1
 setAlarmBtn.addEventListener('click', (e) => {
   e.preventDefault()
-  if (setHour.value > 0 && setMin.value >= 0 && setSec.value >= 0 ) {
-    
+  if (setHour.value > 0 && setMin.value >= 0 && setSec.value >= 0) {
     let newAlarm = new Alarm(
       setHour.value,
       setMin.value,
       setSec.value,
       setMeridian.value
     )
-  
+
     let storingObj = JSON.stringify(newAlarm)
     localStorage.setItem(`Alarm${alarmId}`, storingObj)
     alert(`Alarm${alarmId} Added`)
@@ -101,6 +100,20 @@ setAlarmBtn.addEventListener('click', (e) => {
     displayAlarm(showAlarm, `Alarm${alarmId}`)
 
     alarmId++
+
+    /** setting alarm alert */
+    let interval = setInterval(function () {
+      let d = new Date().toLocaleTimeString()
+      let [newAlarmTime,meridian] = d.split(' ')
+      let [h,m,s] = newAlarmTime.split(':')
+      if (+h === +newAlarm.hour && +m === +newAlarm.min && +s === +newAlarm.sec && meridian === newAlarm.meridian) {
+        alert(`Alarm${alarmId-1} is ringing`)
+        clearInterval(interval)
+        location.reload()
+      }
+    }, 1000)
+    /** End Alarm Alert */
+
   }
 })
 
@@ -135,7 +148,7 @@ function displayAlarm(showAlarm, deleteId) {
   deleteBtnSpan.onclick = function () {
     // this.parentElement.removeChild(this);
     let attr = this.getAttribute('data-deleteId')
-    if (confirm('Press Ok To Delete Alarm Parmanently...')) {
+    if (confirm('Press Ok To Delete ' + deleteId + ' Parmanently...')) {
       localStorage.removeItem(attr)
       location.reload()
     }
