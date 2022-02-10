@@ -3,51 +3,61 @@ let currentTimeMeridian = document.querySelector('#time-meridian')
 let timeSpan = document.querySelector('#time-span')
 let setHour = document.querySelector('#set-hour')
 let setMin = document.querySelector('#set-min')
+let setSec = document.querySelector('#set-sec')
 let setMeridian = document.querySelector('#set-meridian')
 let setAlarmBtn = document.querySelector('#set-alarm')
 let alarmsListContainer = document.querySelector('.alarms-list-container')
 
 /** Defining Hour & Min option Dynamacally */
-var getMinList
-var getHourList
-
 function hourList() {
   for (var i = 1; i <= 12; i++) {
+    if (i < 10) {
+      i = '0' + i
+    }
     let optionString = `<option value="${i}">${i}</option>`
     setHour.insertAdjacentHTML('beforeend', optionString)
   }
-  getHourList = document.querySelectorAll('#set-hour option')
 }
 function minList() {
-  for (var i = 5; i <= 60; i = i + 5) {
-    let optionString = `<option value="${i}">${i}</option>`
+  for (var i = 0; i < 60; i += 5) {
+    var mi
+    if (i < 10) {
+      mi = '0' + i
+    } else {
+      mi = i
+    }
+    let optionString = `<option value="${mi}">${mi}</option>`
     setMin.insertAdjacentHTML('beforeend', optionString)
   }
-  getMinList = document.querySelectorAll('#set-min option')
+}
+function secList() {
+  for (var i = 0; i < 60; i++) {
+    if (i < 10) {
+      i = '0' + i
+    }
+    let optionString = `<option value="${i}">${i}</option>`
+    setSec.insertAdjacentHTML('beforeend', optionString)
+  }
 }
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
   minList()
+  secList()
 })()
 /** List Hour & Min list added to page */
 
 /** Setting The Current time */
 ;(function settingCurrentTime() {
   function getCurrentTime() {
-    let today = new Date()
-    let hour = today.getHours() < 10 ? '0' + today.getHours() : today.getHours()
-    let minute =
-      today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes()
-    let second =
-      today.getSeconds() < 10 ? '0' + today.getSeconds() : today.getSeconds()
-
-    if (hour > 12) {
-      hour = hour - 12
-      currentTimeMeridian.innerText = 'PM'
-    } else {
-      currentTimeMeridian.innerText = 'AM'
+    let d = new Date().toLocaleTimeString().split(' ')
+    // console.log(d);
+    let [hour, minute, second] = d[0].split(':')
+    if (hour < 10) {
+      hour = '0' + hour
     }
+    currentTimeMeridian.innerText = d[1].toUpperCase()
+
     return hour + ':' + minute + ':' + second
   }
 
@@ -63,9 +73,10 @@ function minList() {
 
 /** Defining Class for alarm */
 class Alarm {
-  constructor(hour, min, meridian) {
+  constructor(hour, min,sec, meridian) {
     this.hour = hour
     this.min = min
+    this.sec = sec
     this.meridian = meridian
   }
 }
@@ -73,29 +84,37 @@ class Alarm {
 let alarmId = localStorage.length + 1
 setAlarmBtn.addEventListener('click', (e) => {
   e.preventDefault()
-  if (setHour.value > 0 && setMin.value > 0) {
-    let newAlarm = new Alarm(setHour.value, setMin.value, setMeridian.value)
+  if (setHour.value > 0 && setMin.value >= 0 && setSec.value >= 0 ) {
+    
+    let newAlarm = new Alarm(
+      setHour.value,
+      setMin.value,
+      setSec.value,
+      setMeridian.value
+    )
+  
     let storingObj = JSON.stringify(newAlarm)
     localStorage.setItem(`Alarm${alarmId}`, storingObj)
     alert(`Alarm${alarmId} Added`)
-    // location.reload();
 
     let showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`))
-    displayAlarm(showAlarm,`Alarm${alarmId}`)
+    displayAlarm(showAlarm, `Alarm${alarmId}`)
 
     alarmId++
   }
 })
 
-function displayAlarm(showAlarm,deleteId) {
-  /** The time Time text */
+/** Displaying Alarm in the Window */
+
+function displayAlarm(showAlarm, deleteId) {
+  /** The Alarm Time text */
 
   let timeSpan = document.createElement('span')
   const timeSpanAtt = document.createAttribute('class')
   timeSpanAtt.value = 'p-2 cursor-default'
   timeSpan.setAttributeNode(timeSpanAtt)
   const timeTextNode = document.createTextNode(
-    `${showAlarm.hour}:${showAlarm.min} ${showAlarm.meridian}`
+    `${showAlarm.hour} : ${showAlarm.min} : ${showAlarm.sec} ${showAlarm.meridian}`
   )
   timeSpan.appendChild(timeTextNode)
 
@@ -107,7 +126,7 @@ function displayAlarm(showAlarm,deleteId) {
   const deleteBtnSpanAtt = document.createAttribute('class')
   deleteBtnSpanAtt.value = 'p-2 cursor-pointer'
   const deleteBtnSpanDataAtt = document.createAttribute('data-deleteId')
-  deleteBtnSpanDataAtt.value = deleteId;
+  deleteBtnSpanDataAtt.value = deleteId
   deleteBtnSpan.setAttributeNode(deleteBtnSpanAtt)
   deleteBtnSpan.setAttributeNode(deleteBtnSpanDataAtt)
   const deleteBtnTextNode = document.createTextNode(`Delete`)
@@ -115,13 +134,12 @@ function displayAlarm(showAlarm,deleteId) {
 
   deleteBtnSpan.onclick = function () {
     // this.parentElement.removeChild(this);
-    let attr = this.getAttribute('data-deleteId');
-    if(confirm("Press Ok To Delete Alarm Parmanently...")){
+    let attr = this.getAttribute('data-deleteId')
+    if (confirm('Press Ok To Delete Alarm Parmanently...')) {
       localStorage.removeItem(attr)
       location.reload()
-    } 
-    
-};
+    }
+  }
   /** End for setting deleteBtn html with name - deleteBtnSpan - */
 
   /** Perent Div for Time & deleteBtn span */
@@ -132,7 +150,7 @@ function displayAlarm(showAlarm,deleteId) {
   alarmBoxAtt.value =
     'alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between'
   alarmBox.setAttributeNode(alarmBoxAtt)
-/** End for setting up parent div for timeSpan & deleteBtn span */
+  /** End for setting up parent div for timeSpan & deleteBtn span */
 
   alarmBox.appendChild(timeSpan)
   alarmBox.appendChild(deleteBtnSpan)
@@ -140,18 +158,9 @@ function displayAlarm(showAlarm,deleteId) {
 }
 
 for (let i = 0; i < localStorage.length; i++) {
-  let key = localStorage.key(i);
+  let key = localStorage.key(i)
   let alarmFromStorage = localStorage.getItem(key)
   let currentAlarm = JSON.parse(alarmFromStorage)
-  displayAlarm(currentAlarm,key)
-}
 
-// if(localStorage.length===0){
-//   let alarmHtml = `<div
-//   class="alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-center"
-// >
-//   <span class="text-center">No Alarm is set </span>`
-//   console.log('hi');
-//   alarmsListContainer.innerHTML = alarmHtml
-// }
-// // console.log(localStorage.getItem('Alarm1'))
+  displayAlarm(currentAlarm, key)
+}
