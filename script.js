@@ -75,7 +75,6 @@ class Alarm {
 }
 
 let alarmId = localStorage.length+1;
-var showAlarm;
 setAlarmBtn.addEventListener('click',(e)=>{
   e.preventDefault()
   if(setHour.value>0 && setMin.value>0){
@@ -83,9 +82,10 @@ setAlarmBtn.addEventListener('click',(e)=>{
     let storingObj = JSON.stringify(newAlarm);
     localStorage.setItem(`Alarm${alarmId}`, storingObj);
     alert(`Alarm${alarmId} Added`)
+    // location.reload();
 
-    // showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`));
-    // displayAlarm(showAlarm);
+    let showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`));
+    displayAlarm(showAlarm);
     
     alarmId++;
   }
@@ -103,7 +103,7 @@ function displayAlarm(showAlarm){
 alarmsListContainer.insertAdjacentHTML('beforeend',newAlarmHtml)
 }
 
-for(var i = 1;i<localStorage.length;i++){
+for(var i = 1;i<=localStorage.length;i++){
   let showAlarm = JSON.parse(localStorage.getItem(`Alarm${i}`));
   displayAlarm(showAlarm);
 }
