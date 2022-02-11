@@ -34,11 +34,14 @@ function minList() {
   }
 }
 function secList() {
-  for (var i = 0; i < 60; i++) {
+  for (var i = 0; i < 60; i += 15) {
+    var si
     if (i < 10) {
-      i = '0' + i
+      si = '0' + i
+    } else {
+      si = i
     }
-    let optionString = `<option value="${i}">${i}</option>`
+    let optionString = `<option value="${si}">${si}</option>`
     setSec.insertAdjacentHTML('beforeend', optionString)
   }
 }
@@ -52,8 +55,8 @@ function minListSingleStepForTest() {
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
-  minListSingleStepForTest()
-  // minList()
+  // minListSingleStepForTest()
+  minList()
   secList()
 })()
 /** List Hour & Min list added to page */
@@ -131,7 +134,7 @@ function runTimerFunction(newAlarm, id) {
     let timeArr = d.split(' ')
     let [newAlarmTime, meridian] = timeArr
     let [h, m, s] = newAlarmTime.split(':')
-    meridian = meridian.toLowerCase();
+    meridian = meridian.toLowerCase()
     if (
       +h === +newAlarm.hour &&
       +m === +newAlarm.min &&
