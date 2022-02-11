@@ -76,7 +76,7 @@ function minListSingleStepForTest() {
 
   function setCurrentTime() {
     let currentTimeString = getCurrentTime()
-    
+
     timeSpan.innerHTML = currentTimeString
   }
 
@@ -111,6 +111,7 @@ setAlarmBtn.addEventListener('click', (e) => {
 
     let showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`))
     displayAlarm(showAlarm, `Alarm${alarmId}`)
+
     /** setting alarm alert */
     runTimerFunction(newAlarm, alarmId) // turning off temporarily
     /** End Alarm Alert */
@@ -120,15 +121,17 @@ setAlarmBtn.addEventListener('click', (e) => {
 
 /** Add Timer function */
 function runTimerFunction(newAlarm, id) {
-  let alarmBox = document.querySelector(`#Alarm${id}`);
+  let alarmBox = document.querySelector(`#Alarm${id}`)
   let interval = setInterval(function () {
-    let alarmHasDeleted = alarmBox.getAttribute('data-deleted');
-    if(alarmHasDeleted==='true'){
+    let alarmHasDeleted = alarmBox.getAttribute('data-deleted')
+    if (alarmHasDeleted === 'true') {
       clearInterval(interval)
     }
     let d = new Date().toLocaleTimeString()
-    let [newAlarmTime, meridian] = d.split(' ')
+    let timeArr = d.split(' ')
+    let [newAlarmTime, meridian] = timeArr
     let [h, m, s] = newAlarmTime.split(':')
+    meridian = meridian.toLowerCase();
     if (
       +h === +newAlarm.hour &&
       +m === +newAlarm.min &&
@@ -138,7 +141,7 @@ function runTimerFunction(newAlarm, id) {
       alert(`Alarm${id} is ringing`)
       localStorage.removeItem(`Alarm${id}`)
       clearInterval(interval)
-      alarmBox.remove();
+      alarmBox.remove()
       // console.log(alarmBox);
     }
   }, 1000)
@@ -177,7 +180,7 @@ function displayAlarm(showAlarm, deleteId) {
     let attr = this.getAttribute('data-deleteId')
     if (confirm('Press Ok To Delete ' + deleteId + ' Parmanently...')) {
       localStorage.removeItem(attr)
-      this.parentElement.setAttribute('data-deleted', true);
+      this.parentElement.setAttribute('data-deleted', true)
       this.parentElement.remove()
       // location.reload()
     }
@@ -192,7 +195,7 @@ function displayAlarm(showAlarm, deleteId) {
   const alarmBoxIdAtt = document.createAttribute('id')
   alarmBoxIdAtt.value = deleteId
   const alarmBoxExistAtt = document.createAttribute('data-deleted')
-  alarmBoxExistAtt.value = false;
+  alarmBoxExistAtt.value = false
   alarmBoxAtt.value =
     'alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between'
   alarmBox.setAttributeNode(alarmBoxAtt)
