@@ -120,7 +120,12 @@ setAlarmBtn.addEventListener('click', (e) => {
 
 /** Add Timer function */
 function runTimerFunction(newAlarm, id) {
+  let alarmBox = document.querySelector(`#Alarm${id}`);
   let interval = setInterval(function () {
+    let alarmHasDeleted = alarmBox.getAttribute('data-deleted');
+    if(alarmHasDeleted==='true'){
+      clearInterval(interval)
+    }
     let d = new Date().toLocaleTimeString()
     let [newAlarmTime, meridian] = d.split(' ')
     let [h, m, s] = newAlarmTime.split(':')
@@ -132,7 +137,6 @@ function runTimerFunction(newAlarm, id) {
     ) {
       alert(`Alarm${id} is ringing`)
       localStorage.removeItem(`Alarm${id}`)
-      let alarmBox = document.querySelector(`#Alarm${id}`);
       clearInterval(interval)
       alarmBox.remove();
       // console.log(alarmBox);
@@ -173,6 +177,7 @@ function displayAlarm(showAlarm, deleteId) {
     let attr = this.getAttribute('data-deleteId')
     if (confirm('Press Ok To Delete ' + deleteId + ' Parmanently...')) {
       localStorage.removeItem(attr)
+      this.parentElement.setAttribute('data-deleted', true);
       this.parentElement.remove()
       // location.reload()
     }
@@ -186,10 +191,13 @@ function displayAlarm(showAlarm, deleteId) {
   const alarmBoxAtt = document.createAttribute('class')
   const alarmBoxIdAtt = document.createAttribute('id')
   alarmBoxIdAtt.value = deleteId
+  const alarmBoxExistAtt = document.createAttribute('data-deleted')
+  alarmBoxExistAtt.value = false;
   alarmBoxAtt.value =
     'alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between'
   alarmBox.setAttributeNode(alarmBoxAtt)
   alarmBox.setAttributeNode(alarmBoxIdAtt)
+  alarmBox.setAttributeNode(alarmBoxExistAtt)
   /** End for setting up parent div for timeSpan & deleteBtn span */
 
   alarmBox.appendChild(timeSpan)
