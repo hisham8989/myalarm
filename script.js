@@ -39,10 +39,19 @@ function secList() {
     setSec.insertAdjacentHTML('beforeend', optionString)
   }
 }
+
+function minListSingleStepForTest() {
+  for (var i = 0; i < 60; i++) {
+    
+    let optionString = `<option value="${i}">${i}</option>`
+    setMin.insertAdjacentHTML('beforeend', optionString)
+  }
+}
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
-  minList()
+  minListSingleStepForTest()
+  // minList()
   secList()
 })()
 /** List Hour & Min list added to page */
