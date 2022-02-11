@@ -55,8 +55,8 @@ function minListSingleStepForTest() {
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
-  // minListSingleStepForTest()
-  minList()
+  minListSingleStepForTest()
+  // minList()
   secList()
 })()
 /** List Hour & Min list added to page */
