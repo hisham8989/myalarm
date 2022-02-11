@@ -77,13 +77,13 @@ function minListSingleStepForTest() {
     }
     
     
-    if(d[1]!==undefined){
-      currentTimeMeridian.innerText = d[1].toUpperCase()
-    }else{
-      // if(hour<12)
-      // settings for am
-      currentTimeMeridian.innerText = ''
-    }
+    // if(d[1]!==undefined){
+    //   currentTimeMeridian.innerText = d[1].toUpperCase()
+    // }else{
+    //   // if(hour<12)
+    //   // settings for am
+    //   currentTimeMeridian.innerText = ''
+    // }
     return `${hour}:${minute}:${second}`
   }
 
