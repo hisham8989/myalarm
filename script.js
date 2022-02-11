@@ -51,8 +51,10 @@ function secList() {
 ;(function settingCurrentTime() {
   function getCurrentTime() {
     let d = new Date().toLocaleTimeString().split(' ')
-    // console.log(d);
-    let [hour, minute, second] = d[0].split(':')
+let timeArr = d[0].split(':');
+    let hour = timeArr[0]
+    let minute = timeArr[1]
+    let second = timeArr[2]
     if (hour < 10) {
       hour = '0' + hour
     }
