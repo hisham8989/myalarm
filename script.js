@@ -8,8 +8,8 @@ let setMeridian = document.querySelector('#set-meridian')
 let setAlarmBtn = document.querySelector('#set-alarm')
 let alarmsListContainer = document.querySelector('.alarms-list-container')
 
-const check = document.getElementById('check')
-const check2 = document.getElementById('check2')
+// const check = document.getElementById('check')
+// const check2 = document.getElementById('check2')
 
 /** Defining Hour & Min option Dynamacally */
 function hourList() {
@@ -45,7 +45,6 @@ function secList() {
 
 function minListSingleStepForTest() {
   for (var i = 0; i < 60; i++) {
-    
     let optionString = `<option value="${i}">${i}</option>`
     setMin.insertAdjacentHTML('beforeend', optionString)
   }
@@ -63,11 +62,7 @@ function minListSingleStepForTest() {
 ;(function settingCurrentTime() {
   function getCurrentTime() {
     let d = new Date().toLocaleTimeString().split(' ')
-    let d1 = new Date().toLocaleTimeString()
-    let d2 = new Date()
-    check.innerHTML = d1+" locale";
-    check2.innerHTML = `${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()} default`
-let timeArr = d[0].split(':');
+    let timeArr = d[0].split(':')
     let hour = timeArr[0]
     let minute = timeArr[1]
     let second = timeArr[2]
@@ -76,13 +71,13 @@ let timeArr = d[0].split(':');
     }
     currentTimeMeridian.innerText = d[1].toUpperCase()
 
-    return hour + ':' + minute + ':' + second
+    return `${hour}:${minute}:${second}`
   }
 
   function setCurrentTime() {
     let currentTimeString = getCurrentTime()
-
-    timeSpan.innerText = currentTimeString
+    
+    timeSpan.innerHTML = currentTimeString
   }
 
   let interval = setInterval(setCurrentTime, 1000)
@@ -117,29 +112,30 @@ setAlarmBtn.addEventListener('click', (e) => {
     let showAlarm = JSON.parse(localStorage.getItem(`Alarm${alarmId}`))
     displayAlarm(showAlarm, `Alarm${alarmId}`)
     /** setting alarm alert */
-    runTimerFunction(newAlarm,alarmId)
+    runTimerFunction(newAlarm, alarmId) // turning off temporarily
     /** End Alarm Alert */
     alarmId++
-
-
   }
 })
 
-
 /** Add Timer function */
-function runTimerFunction(newAlarm,id) {
+function runTimerFunction(newAlarm, id) {
   let interval = setInterval(function () {
     let d = new Date().toLocaleTimeString()
-    let [newAlarmTime,meridian] = d.split(' ')
-    let [h,m,s] = newAlarmTime.split(':')
-    if (+h === +newAlarm.hour && +m === +newAlarm.min && +s === +newAlarm.sec && meridian === newAlarm.meridian) {
+    let [newAlarmTime, meridian] = d.split(' ')
+    let [h, m, s] = newAlarmTime.split(':')
+    if (
+      +h === +newAlarm.hour &&
+      +m === +newAlarm.min &&
+      +s === +newAlarm.sec &&
+      meridian === newAlarm.meridian
+    ) {
       alert(`Alarm${id} is ringing`)
-      localStorage.removeItem(`Alarm${id}`);
+      localStorage.removeItem(`Alarm${id}`)
       clearInterval(interval)
       location.reload()
     }
   }, 1000)
-  
 }
 
 /** Displaying Alarm in the Window */
