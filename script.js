@@ -132,8 +132,10 @@ function runTimerFunction(newAlarm, id) {
     ) {
       alert(`Alarm${id} is ringing`)
       localStorage.removeItem(`Alarm${id}`)
+      let alarmBox = document.querySelector(`#Alarm${id}`);
       clearInterval(interval)
-      location.reload()
+      alarmBox.remove();
+      // console.log(alarmBox);
     }
   }, 1000)
 }
@@ -171,7 +173,8 @@ function displayAlarm(showAlarm, deleteId) {
     let attr = this.getAttribute('data-deleteId')
     if (confirm('Press Ok To Delete ' + deleteId + ' Parmanently...')) {
       localStorage.removeItem(attr)
-      location.reload()
+      this.parentElement.remove()
+      // location.reload()
     }
   }
   /** End for setting deleteBtn html with name - deleteBtnSpan - */
@@ -181,9 +184,12 @@ function displayAlarm(showAlarm, deleteId) {
   // Alarm div
   let alarmBox = document.createElement('div')
   const alarmBoxAtt = document.createAttribute('class')
+  const alarmBoxIdAtt = document.createAttribute('id')
+  alarmBoxIdAtt.value = deleteId
   alarmBoxAtt.value =
     'alarm-box text-lg px-2 rounded-xl border-2 w-4/5 mx-auto flex justify-between'
   alarmBox.setAttributeNode(alarmBoxAtt)
+  alarmBox.setAttributeNode(alarmBoxIdAtt)
   /** End for setting up parent div for timeSpan & deleteBtn span */
 
   alarmBox.appendChild(timeSpan)
