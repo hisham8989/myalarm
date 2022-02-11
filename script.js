@@ -66,14 +66,24 @@ function minListSingleStepForTest() {
   function getCurrentTime() {
     let d = new Date().toLocaleTimeString().split(' ')
     let timeArr = d[0].split(':')
-    let hour = timeArr[0]
-    let minute = timeArr[1]
-    let second = timeArr[2]
-    if (hour < 10) {
+    let [hour,minute,second] = timeArr
+    // console.log();
+    if(hour.charAt(0)==='0'){
+      console.log('Mobile hai');
+    }else{
+      if (hour < 12) {
       hour = '0' + hour
     }
-    currentTimeMeridian.innerText = d[1].toUpperCase()
-
+    }
+    
+    
+    if(d[1]!==undefined){
+      currentTimeMeridian.innerText = d[1].toUpperCase()
+    }else{
+      // if(hour<12)
+      // settings for am
+      currentTimeMeridian.innerText = ''
+    }
     return `${hour}:${minute}:${second}`
   }
 
