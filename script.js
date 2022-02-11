@@ -8,6 +8,9 @@ let setMeridian = document.querySelector('#set-meridian')
 let setAlarmBtn = document.querySelector('#set-alarm')
 let alarmsListContainer = document.querySelector('.alarms-list-container')
 
+const check = document.getElementById('check')
+const check2 = document.getElementById('check2')
+
 /** Defining Hour & Min option Dynamacally */
 function hourList() {
   for (var i = 1; i <= 12; i++) {
@@ -60,6 +63,10 @@ function minListSingleStepForTest() {
 ;(function settingCurrentTime() {
   function getCurrentTime() {
     let d = new Date().toLocaleTimeString().split(' ')
+    let d1 = new Date().toLocaleTimeString()
+    let d2 = new Date()
+    check.innerHTML = d1+" locale";
+    check2.innerHTML = `${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()} default`
 let timeArr = d[0].split(':');
     let hour = timeArr[0]
     let minute = timeArr[1]
