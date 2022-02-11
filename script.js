@@ -116,8 +116,8 @@ function runTimerFunction(newAlarm,id) {
     let [h,m,s] = newAlarmTime.split(':')
     if (+h === +newAlarm.hour && +m === +newAlarm.min && +s === +newAlarm.sec && meridian === newAlarm.meridian) {
       alert(`Alarm${id} is ringing`)
-      clearInterval(interval)
       localStorage.removeItem(`Alarm${id}`);
+      clearInterval(interval)
       location.reload()
     }
   }, 1000)
