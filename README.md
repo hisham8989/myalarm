@@ -10,7 +10,7 @@ it has clock face,dropdowns,set button to set an alarm (refer screenshot section
 
 ## Screenshots
 
-    this is how alarm clock looks when its launch or in idle state 
+    Here is the first when the app is launched or in idle state 
 ![App Screenshot](./idle.jpg)
 
     User can set time for an alarm through these dropdowns
