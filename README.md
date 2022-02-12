@@ -8,9 +8,14 @@ they are sometimes used for other reminders as well.
 
 ## Screenshots
 
+     When Alarm is Set 
 ![App Screenshot](./sample1.jpg)
 
+
+    when alarm goes off / rings
 ![App Screenshot](./sample2.jpg)
+
+
 
 ## Features
 
