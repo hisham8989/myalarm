@@ -2,37 +2,59 @@
 # Simple Alarm Clock
 
 It is a clock that is designed to alert user at a specified time.
-The primary function of these clocks is to awaken people from their night's sleep or short naps;
-they are sometimes used for other reminders as well.
+This app has current time running constantly so that user can set an alarm accordingly
+it has clock face,dropdowns,set button to set an alarm (refer screenshot section)
+
+    
 
 
 ## Screenshots
 
-     When Alarm is Set 
-![App Screenshot](./sample1.jpg)
+    this is how alarm clock looks when its launch or in idle state 
+![App Screenshot](./idle.jpg)
+
+    User can set time for an alarm through these dropdowns
+![App Screenshot](./dropdown.jpg)
+
+    Alarms set by user are listed below
+![App Screenshot](./alarm-list.jpg)
+
+    click on set , user will get an alert ensuring your alarm is set 
+![App Screenshot](./set.jpg)
 
 
-    when alarm goes off / rings
-![App Screenshot](./sample2.jpg)
+    this is how user will get an alert about alarm set by user is ringing & never gonna ring again
+![App Screenshot](./ring.jpg)
 
 
 
 ## Features
 
 - Clock face
-    - Clock showing the current time (seconds,mins,hrs should change as time changes)
+    - Clock shows the current time
 
 - Set Alarm
-    - It select option boxes to set an alarm (hr,min,sec, am/pm)
-    - Once the sets the time and click “Set Alarm” button, it will be added that alarm to the alarms list below
-    - When the alarm goes of it just uses JS alert function to alert in the browser
+    - It has select option boxes to set an alarm (hr,min,sec, am/pm)
+    - Once the time is set by clicking at “Set Alarm” button, alarm will be added to the alarms list below
+    - When the alarm goes of it's just uses JS alert function to alert in the browser
 
 - Alarms list
     - Display a list of all the alarms set by user
 
 - Delete alarm
-    - For each alarm give a delete button to delete the alarm
-    - When the user deletes an alarm it does not alerts the user
-    - when the user deletes an alarm among alarms list it deletes that alarm only
+    - For each alarm there is a dedicated delete button to delete the alarm
+    - When the user deletes an alarm it does not alert the user & does not appear in alarm list
+    - alarm will be deleted only after user's confirmation
 
+
+
+## Technology Used
+
+- HTML
+- CSS
+- JAVASCRIPT
+- TAILWIND CSS ( css framework )
+## Author
+
+- [@hishamkhan](https://github.com/hisham8989)
 
