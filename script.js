@@ -55,9 +55,9 @@ function minListSingleStepForTest() {
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
-  minListSingleStepForTest()
-  // minList()
-  secList()
+  // minListSingleStepForTest()   // < --- it is just used for testing only 
+  minList()      // Minute list has 5 min leaps inspired by mobile fone 5 min leap
+  secList()      // Second list has 15 second leap
 })()
 /** List Hour & Min list added to page */
 
