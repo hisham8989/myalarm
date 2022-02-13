@@ -8,9 +8,6 @@ let setMeridian = document.querySelector('#set-meridian')
 let setAlarmBtn = document.querySelector('#set-alarm')
 let alarmsListContainer = document.querySelector('.alarms-list-container')
 
-// const check = document.getElementById('check')
-// const check2 = document.getElementById('check2')
-
 /** Defining Hour & Min option Dynamacally */
 function hourList() {
   for (var i = 1; i <= 12; i++) {
@@ -55,9 +52,9 @@ function minListSingleStepForTest() {
 /** Firing List of hours & Min */
 ;(function fireOptions() {
   hourList()
-  // minListSingleStepForTest()   // < --- it is just used for testing only 
-  minList()      // Minute list has 5 min leaps inspired by mobile fone 5 min leap
-  secList()      // Second list has 15 second leap
+  // minListSingleStepForTest()   // < --- it is just used for testing only
+  minList() // Minute list has 5 min leaps inspired by mobile fone 5 min leap
+  secList() // Second list has 15 second leap
 })()
 /** List Hour & Min list added to page */
 
@@ -97,7 +94,9 @@ class Alarm {
   }
 }
 
+// defines alarm identity.. help to identify an alarm from multiple alarms
 let alarmId = localStorage.length + 1
+
 setAlarmBtn.addEventListener('click', (e) => {
   e.preventDefault()
   if (setHour.value > 0 && setMin.value >= 0 && setSec.value >= 0) {
@@ -116,7 +115,7 @@ setAlarmBtn.addEventListener('click', (e) => {
     displayAlarm(showAlarm, `Alarm${alarmId}`)
 
     /** setting alarm alert */
-    runTimerFunction(newAlarm, alarmId) // turning off temporarily
+    runTimerFunction(newAlarm, alarmId)
     /** End Alarm Alert */
     alarmId++
   }
@@ -145,7 +144,6 @@ function runTimerFunction(newAlarm, id) {
       localStorage.removeItem(`Alarm${id}`)
       clearInterval(interval)
       alarmBox.remove()
-      // console.log(alarmBox);
     }
   }, 1000)
 }
@@ -153,8 +151,9 @@ function runTimerFunction(newAlarm, id) {
 /** Displaying Alarm in the Window */
 
 function displayAlarm(showAlarm, deleteId) {
-  /** The Alarm Time text */
+  // diplay Example ...   [ 12:32:45 pm                  Delete ]
 
+  /** The Alarm Time text */
   let timeSpan = document.createElement('span')
   const timeSpanAtt = document.createAttribute('class')
   timeSpanAtt.value = 'p-2 cursor-default'
@@ -210,6 +209,8 @@ function displayAlarm(showAlarm, deleteId) {
   alarmBox.appendChild(deleteBtnSpan)
   alarmsListContainer.appendChild(alarmBox)
 }
+
+/* loop for the list of alarms stored in local storage */
 
 for (let i = 0; i < localStorage.length; i++) {
   let key = localStorage.key(i)
