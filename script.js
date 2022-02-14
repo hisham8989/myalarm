@@ -77,7 +77,7 @@ function formatAMPM(date) {
   function getCurrentTime() {
     let d = formatAMPM(new Date())
     let [timeArr, meridian] = d.split(' ')
-    let [hour, minute, second] = timeArr.split(":")
+    let [hour, minute, second] = timeArr.split(':')
     if (hour < 10) {
       hour = '0' + hour
     }
@@ -111,7 +111,7 @@ let alarmId = localStorage.length + 1
 
 setAlarmBtn.addEventListener('click', (e) => {
   e.preventDefault()
-  if (setHour.value > 0 && setMin.value >= 0 && setSec.value >= 0) {
+  if (setHour.value != '' && setMin.value != '' && setSec.value != '') {
     let newAlarm = new Alarm(
       setHour.value,
       setMin.value,
@@ -130,6 +130,8 @@ setAlarmBtn.addEventListener('click', (e) => {
     runTimerFunction(newAlarm, alarmId)
     /** End Alarm Alert */
     alarmId++
+  } else {
+    alert('You are missing with selecting any of hr , min or sec,.Please Select Appropriate set of time first !!! ')
   }
 })
 
