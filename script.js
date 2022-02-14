@@ -58,18 +58,30 @@ function minListSingleStepForTest() {
 })()
 /** List Hour & Min list added to page */
 
+/* Formating dates */
+function formatAMPM(date) {
+  var hours = date.getHours()
+  var minutes = date.getMinutes()
+  var seconds = date.getSeconds()
+  var ampm = hours >= 12 ? 'pm' : 'am'
+  hours = hours % 12
+  hours = hours ? hours : 12 // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  seconds = seconds < 10 ? '0' + seconds : seconds
+  var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm
+  return strTime
+}
+
 /** Setting The Current time */
 ;(function settingCurrentTime() {
   function getCurrentTime() {
-    let d = new Date().toLocaleTimeString().split(' ')
-    let timeArr = d[0].split(':')
-    let hour = timeArr[0]
-    let minute = timeArr[1]
-    let second = timeArr[2]
+    let d = formatAMPM(new Date())
+    let [timeArr, meridian] = d.split(' ')
+    let [hour, minute, second] = timeArr
     if (hour < 10) {
       hour = '0' + hour
     }
-    currentTimeMeridian.innerText = d[1].toUpperCase()
+    currentTimeMeridian.innerText = meridian.toUpperCase()
 
     return `${hour}:${minute}:${second}`
   }
@@ -129,11 +141,10 @@ function runTimerFunction(newAlarm, id) {
     if (alarmHasDeleted === 'true') {
       clearInterval(interval)
     }
-    let d = new Date().toLocaleTimeString()
+    let d = formatAMPM(new Date())
     let timeArr = d.split(' ')
     let [newAlarmTime, meridian] = timeArr
     let [h, m, s] = newAlarmTime.split(':')
-    meridian = meridian.toLowerCase()
     if (
       +h === +newAlarm.hour &&
       +m === +newAlarm.min &&
