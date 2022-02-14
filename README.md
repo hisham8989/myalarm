@@ -5,9 +5,6 @@ It is a clock that is designed to alert user at a specified time.
 This app has current time running constantly so that user can set an alarm accordingly
 it has clock face,dropdowns,set button to set an alarm (refer screenshot section)
 
-    
-
-
 ## Screenshots
 
     Here is the first look when the app is launched or in idle state 
@@ -45,6 +42,14 @@ it has clock face,dropdowns,set button to set an alarm (refer screenshot section
     - For each alarm there is a dedicated delete button to delete the alarm
     - When the user deletes an alarm it does not alert the user & does not appear in alarm list
     - alarm will be deleted only after user's confirmation
+
+## Limitations
+
+- This Simple Alarm Clock requires internet to work properly
+- This app uses local Storage to stores alarms
+- Refeshing the page breaks the alarm's timer i.e.., if user sets an alarm & page get refreshed in anyway ., set alarms will not be ringing.
+- User need to stick to the page set alarm does not keep running in background
+- Styling Given to the app works upon mostly used browsers with thier latest version such as chrome , firefox , edge , brave , etc...   
 
 
 
