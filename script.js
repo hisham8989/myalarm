@@ -77,7 +77,7 @@ function formatAMPM(date) {
   function getCurrentTime() {
     let d = formatAMPM(new Date())
     let [timeArr, meridian] = d.split(' ')
-    let [hour, minute, second] = timeArr
+    let [hour, minute, second] = timeArr.split(":")
     if (hour < 10) {
       hour = '0' + hour
     }
