@@ -63,3 +63,6 @@ it has clock face,dropdowns,set button to set an alarm (refer screenshot section
 
 - [@hishamkhan](https://github.com/hisham8989)
 
+## Hosted Link
+- https://hisham8989.github.io/myalarm/
+
